@@ -4,3 +4,13 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.13/samples
  */
+
+plugins {
+    id 'base'
+}
+
+allprojects {
+    // Apply common settings to ALL projects (parent + subprojects)
+    group = 'bg.coincraft'
+    version = '0.0.1-SNAPSHOT'
+}
