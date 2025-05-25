@@ -27,6 +27,18 @@ subprojects {
         // Openapi
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
         implementation "org.openapitools:jackson-databind-nullable:0.2.6"
+
+        // Lombok
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        // Test containers
+        testImplementation 'org.testcontainers:testcontainers'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+        testImplementation 'org.testcontainers:junit-jupiter'
+        testImplementation 'org.testcontainers:postgresql'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
     bootJar {
@@ -64,4 +76,37 @@ subprojects {
                 useSpringBoot3                : "true"
         ]
     }
+
+    sourceSets {
+        integrationTest {
+            java {
+                srcDir 'src/integration-test/java'
+            }
+
+            resources {
+                srcDir 'src/integration-test/resources'
+            }
+
+            compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+            runtimeClasspath += output + compileClasspath
+        }
+    }
+
+    configurations {
+        integrationTestImplementation.extendsFrom testImplementation
+        integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+        integrationTestCompileOnly.extendsFrom compileOnly
+        integrationTestAnnotationProcessor.extendsFrom annotationProcessor
+    }
+
+    task integrationTest(type: Test) {
+        dependsOn compileJava
+        testClassesDirs = sourceSets.integrationTest.output.classesDirs
+        classpath = sourceSets.integrationTest.runtimeClasspath
+        shouldRunAfter test
+        outputs.upToDateWhen { false }
+        useJUnitPlatform()
+    }
+
+    check.dependsOn integrationTest
 }
