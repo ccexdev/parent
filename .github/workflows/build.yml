@@ -37,7 +37,10 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: gebozhinov/parent
+        images: ${{ secrets.DOCKERHUB_USERNAME }}/parent
+        tags: |
+          type=sha
+          latest
 
     - name: Build and push Docker image
       id: push
