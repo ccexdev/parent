@@ -1,10 +1,8 @@
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 COPY . .
-RUN ls -l /app/services/user-service && cat /app/settings.gradle
-RUN ./gradlew projects
 ARG SERVICE_NAME
-RUN ./gradlew :services/${SERVICE_NAME}:clean :services/${SERVICE_NAME}:build -x integrationTest -x test
+RUN ./gradlew :services:${SERVICE_NAME}:clean :services:${SERVICE_NAME}:build -x integrationTest -x test
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
