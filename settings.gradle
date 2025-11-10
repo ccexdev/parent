@@ -13,3 +13,4 @@ pluginManagement {
 rootProject.name = 'parent'
 
 include("services:user-service")
+include("services:authentication-service")
