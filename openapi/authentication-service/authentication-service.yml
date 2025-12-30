@@ -12,5 +12,7 @@ paths:
       responses:
         200:
           description: OK
-  /api/v1/authentication-service/public/register:
+  /api/v1/authentication-service/public/token:
+    $ref: 'endpoint/LoginUser.yml'
+  /api/v1/authentication-service/internal/register:
     $ref: 'endpoint/User.yml'

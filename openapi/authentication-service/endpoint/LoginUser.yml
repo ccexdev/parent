@@ -1,8 +1,8 @@
 post:
   tags:
-    - User
+    - Authentication
   operationId: token
-  summary: Login user
+  summary: Generate jwt
   requestBody:
     required: true
     content:

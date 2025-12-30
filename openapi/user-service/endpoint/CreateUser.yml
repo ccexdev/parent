@@ -2,7 +2,7 @@ post:
   tags:
     - User
   operationId: register
-  summary: Create user
+  summary: Register user
   requestBody:
     required: true
     content:
