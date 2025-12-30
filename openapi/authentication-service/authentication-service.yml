@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: user-service
-  description: User Service
+  title: authentication-service
+  description: Authentication Service
   version: 1.0.0
 servers:
   - url: http://localhost:8082
@@ -12,3 +12,5 @@ paths:
       responses:
         200:
           description: OK
+  /api/v1/authentication-service/public/register:
+    $ref: 'endpoint/User.yml'
