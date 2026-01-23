@@ -1,0 +1,37 @@
+services:
+
+  eureka-server:
+    image: gebozhinov/eureka-server:latest
+    pull_policy: always
+    container_name: eureka-server
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+
+  user-service:
+    image: gebozhinov/user-service:latest
+    pull_policy: always
+    container_name: user-service
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/user_service
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      JWT_ISSUER_URL: http://keycloak:8080/realms/local-realm
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      AUTHENTICATION_SERVICE_URL: http://AUTHENTICATION-SERVICE
+    ports:
+      - "8088:8081"
+
+  authentication-service:
+    image: gebozhinov/authentication-service:latest
+    pull_policy: always
+    container_name: authentication-service
+    restart: unless-stopped
+    environment:
+      JWT_ISSUER_URL: http://keycloak:8080/realms/local-realm
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_SECRET: aKeDLv7Uht8EI5pZkfUZQAg0gEHdkAQc
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    ports:
+      - "8089:8082"
