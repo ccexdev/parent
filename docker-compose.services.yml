@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     ports:
       - "8761:8761"
+    networks:
+      - app-network
 
   user-service:
     image: gebozhinov/user-service:latest
@@ -22,6 +24,10 @@ services:
       AUTHENTICATION_SERVICE_URL: http://AUTHENTICATION-SERVICE
     ports:
       - "8088:8081"
+    depends_on:
+      - eureka-server
+    networks:
+      - app-network
 
   authentication-service:
     image: gebozhinov/authentication-service:latest
@@ -35,3 +41,12 @@ services:
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
     ports:
       - "8089:8082"
+    depends_on:
+      - eureka-server
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external: true
+    name: app-network
