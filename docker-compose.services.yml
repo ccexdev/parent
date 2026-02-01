@@ -10,6 +10,19 @@ services:
     networks:
       - app-network
 
+  api-gateway:
+    image: gebozhinov/api-gateway:latest
+    pull_policy: always
+    container_name: api-gateway
+    restart: unless-stopped
+    environment:
+      JWT_ISSUER_URL: http://keycloak:8080/realms/local-realm
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
   user-service:
     image: gebozhinov/user-service:latest
     pull_policy: always
