@@ -4,7 +4,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.3' apply false
     id 'io.spring.dependency-management' version '1.1.7' apply false
-    id 'org.openapi.generator' version "7.3.0" apply false
+    id 'org.openapi.generator' version '7.3.0' apply false
 }
 
 allprojects {
@@ -33,7 +33,7 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        implementation "org.springframework.boot:spring-boot-starter-security"
+        implementation 'org.springframework.boot:spring-boot-starter-security'
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
         // Eureka Client
@@ -52,6 +52,9 @@ subprojects {
         // Lombok
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+
+        // Flyway
+        implementation "org.flywaydb:flyway-database-postgresql"
 
         // Test containers
         testImplementation 'org.testcontainers:testcontainers'
