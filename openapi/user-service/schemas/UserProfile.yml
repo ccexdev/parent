@@ -1,0 +1,17 @@
+type: object
+properties:
+  countryCode:
+    type: string
+  dateOfBirth:
+    type: string
+    format: date
+  gender:
+    $ref: '../schemas/enum/Gender.yml'
+  address:
+    type: string
+  city:
+    type: string
+  postalCode:
+    type: string
+  country:
+    type: string
